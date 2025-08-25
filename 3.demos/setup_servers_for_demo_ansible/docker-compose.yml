@@ -45,7 +45,7 @@ services:
         exec /usr/sbin/sshd -D
         "
 
-ansible-test2:
+  ansible-test2:
     image: aoudiamoncef/ubuntu-sshd
     container_name: ansible-test2
     hostname: ansible-test2
