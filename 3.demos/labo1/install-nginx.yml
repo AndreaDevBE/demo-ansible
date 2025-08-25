@@ -1,0 +1,12 @@
+- name: Installer et démarrer Nginx
+  hosts: demo
+  become: yes
+  tasks:
+    - name: Installer le paquet nginx
+      apt:
+        name: nginx
+        state: present
+    - name: S’assurer que le service est démarré
+      service:
+        name: nginx
+        state: started

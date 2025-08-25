@@ -1,0 +1,86 @@
+services:
+  ansible-test1:
+    image: aoudiamoncef/ubuntu-sshd
+    container_name: ansible-test1
+    hostname: ansible-test1
+    ports:
+      - "2222:22"
+      - "8080:80"
+    environment:
+      SSH_USERNAME: ubuntu
+      SSH_PASSWORD: ubuntu
+    command: >
+      bash -lc "
+        user=demo
+        pass=demo
+
+        apt-get update &&
+        apt-get install -y sudo
+
+        # 1) Assurer l'existence de l'utilisateur
+        if ! id -u $$user >/dev/null 2>&1; then
+          useradd -ms /bin/bash $$user
+        fi
+        # 2) (Optionnel) définir un mot de passe si fourni
+        if [ -n \"$$pass\" ]; then
+          echo \"$$user:$$pass\" | chpasswd || true
+        fi
+
+        # 3) Installer la clé publique si montée
+        mkdir -p /home/$$user/.ssh
+        if [ -f /tmp/authorized_keys.pub ]; then
+          cat /tmp/authorized_keys.pub > /home/$$user/.ssh/authorized_keys
+        fi
+        chown -R $$user:$$user /home/$$user/.ssh
+        chmod 700 /home/$$user/.ssh
+        [ -f /home/$$user/.ssh/authorized_keys ] && chmod 600 /home/$$user/.ssh/authorized_keys || true
+
+        # 4) Donner sudo sans mot de passe pour la démo
+        usermod -aG sudo $$user
+        echo \"$$user ALL=(ALL) NOPASSWD:ALL\" > /etc/sudoers.d/$$user
+        chmod 0440 /etc/sudoers.d/$$user
+
+        # 5) Démarrer sshd en foreground
+        mkdir -p /var/run/sshd
+        exec /usr/sbin/sshd -D
+        "
+
+  ansible-test2:
+    image: aoudiamoncef/ubuntu-sshd
+    container_name: ansible-test2
+    hostname: ansible-test2
+    ports:
+      - "2223:22"
+    environment:
+      SSH_USERNAME: demo
+      SSH_PASSWORD: demo
+
+  ansible-test3:
+    image: aoudiamoncef/ubuntu-sshd
+    container_name: ansible-test3
+    hostname: ansible-test3
+    ports:
+      - "2224:22"
+    environment:
+      SSH_USERNAME: demo
+      SSH_PASSWORD: demo
+
+  ansible-test4:
+    image: aoudiamoncef/ubuntu-sshd
+    container_name: ansible-test4
+    hostname: ansible-test4
+    ports:
+      - "2225:22"
+    environment:
+      SSH_USERNAME: demo
+      SSH_PASSWORD: demo
+
+  ansible-test5:
+    image: aoudiamoncef/ubuntu-sshd
+    container_name: ansible-test5
+    hostname: ansible-test5
+    ports:
+      - "2226:22"
+    environment:
+      SSH_USERNAME: demo
+      SSH_PASSWORD: demo
