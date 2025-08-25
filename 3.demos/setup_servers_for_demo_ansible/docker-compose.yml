@@ -51,7 +51,7 @@ services:
     hostname: ansible-test2
     ports:
       - "2223:22"
-      - "8080:80"
+      - "8081:80"
     environment:
       SSH_USERNAME: ubuntu
       SSH_PASSWORD: ubuntu
@@ -97,7 +97,7 @@ services:
     hostname: ansible-test3
     ports:
       - "2224:22"
-      - "8080:80"
+      - "8082:80"
     environment:
       SSH_USERNAME: ubuntu
       SSH_PASSWORD: ubuntu
@@ -143,7 +143,7 @@ services:
     hostname: ansible-test4
     ports:
       - "2225:22"
-      - "8080:80"
+      - "8083:80"
     environment:
       SSH_USERNAME: ubuntu
       SSH_PASSWORD: ubuntu
@@ -190,7 +190,7 @@ services:
     hostname: ansible-test5
     ports:
       - "2226:22"
-      - "8080:80"
+      - "8084:80"
     environment:
       SSH_USERNAME: ubuntu
       SSH_PASSWORD: ubuntu
