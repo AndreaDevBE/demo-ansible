@@ -31,8 +31,7 @@ Il est organisé en trois parties progressives : introduction, bases, puis démo
 ## Prérequis
 
 - [Ansible](https://docs.ansible.com/) installé localement (`pip install ansible` ou via le gestionnaire de paquets de ta distribution).  
-- Accès à une machine cible (ou à `localhost` pour les tests).
-
+- Accès à une machine cible (ou à `localhost` pour les tests). [Un docker-compose est disponible ici](3.demos/setup_servers_for_demo_ansible/docker-compose.yml).
 ---
 
 ## Exécution rapide
